@@ -1,155 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Study Countdown Dashboard</title>
-<style>
-body {
-    margin:0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(160deg, #0f1b67, #111827);
-    color: #fff;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:20px;
-    min-height:100vh;
-}
-.schedule {
-    width: 90%;
-    max-width:700px;
-    margin-bottom:20px;
-}
-.block {
-    padding:15px;
-    margin:8px 0;
-    border-radius:12px;
-    background: rgba(2,6,23,0.6);
-    transition: 0.3s all;
-    cursor:pointer;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-.block:hover { transform: scale(1.05); }
-.history { background: rgba(31,119,180,0.8);}
-.coding { background: rgba(255,127,14,0.8);}
-.vedic { background: rgba(44,160,44,0.8);}
-.polity { background: rgba(255, 39, 39, 0.8);}
-.nap { background: rgba(33, 9, 9, 0.8);}
-.sunday { background: rgba(123, 104, 238,0.8);}
-.current { box-shadow: 0 0 25px #60a5fa; transform: scale(1.05);}
-.time { font-weight:bold; margin-right:10px; min-width:80px; text-align:right;}
-.countdown { font-weight:bold; font-size:1.2em;}
-.note-box {
-    margin-top:20px;
-    padding:15px;
-    border-radius:12px;
-    background: rgba(60,60,60,0.6);
-    width:90%;
-    max-width:700px;
-    font-size:1.1em;
-    text-align:center;
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Dynamic Gradient Boxes</title>
+  <style>
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #000000;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    body {
+      aspect-ratio: 9/16;
+      max-width: 100vw;
+      max-height: 100vh;
+    }
+
+    .welcome-box {
+      padding: 50px;
+      border-radius: 15px;
+      border: 1px solid transparent;
+      position: relative;
+      background-color: rgba(255, 163, 203, 0.9);
+      animation: glow 4s linear infinite;
+      box-shadow: 0 0 40px rgb(255, 0, 0);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      cursor: pointer;
+    }
+
+    .welcome-box::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      background: linear-gradient(45deg,
+        #ff1493, #00ff7f, #ffd700, #1e90ff, #ff4500, #00ffff, #ff69b4, #7fff00);
+      background-size: 400% 400%;
+      z-index: -1;
+      filter: blur(15px);
+      animation: colorCycle 5s linear infinite;
+      border-radius: 25px;
+    }
+
+    .text-box {
+      padding: 20px;
+      border-radius: 20px;
+      font-size: 40px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: black;
+      text-align: center;
+      transition: background 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .text-box.english {
+      background: #9bbfff;
+      border: 5px solid #ff4040;
+    }
+
+    .text-box.hinglish {
+      background: #9cd3d3;
+      border: 5px solid #c300d1;
+    }
+
+    .text-box:active, .text-box:hover {
+      background: #00ff59;
+      box-shadow: 0 0 20px rgba(28, 3, 255, 0.8);
+    }
+
+    .animated-text span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s forwards;
+    }
+
+    .text-box.english .animated-text span:nth-child(1) { animation-delay: 0.1s; }
+    .text-box.english .animated-text span:nth-child(2) { animation-delay: 0.2s; }
+    .text-box.english .animated-text span:nth-child(3) { animation-delay: 0.3s; }
+    .text-box.english .animated-text span:nth-child(4) { animation-delay: 0.4s; }
+    .text-box.english .animated-text span:nth-child(5) { animation-delay: 0.5s; }
+    .text-box.english .animated-text span:nth-child(6) { animation-delay: 0.6s; }
+    .text-box.english .animated-text span:nth-child(7) { animation-delay: 0.7s; }
+
+    .text-box.hinglish .animated-text span:nth-child(1) { animation-delay: 0.1s; }
+    .text-box.hinglish .animated-text span:nth-child(2) { animation-delay: 0.2s; }
+    .text-box.hinglish .animated-text span:nth-child(3) { animation-delay: 0.3s; }
+    .text-box.hinglish .animated-text span:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes colorCycle {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        box-shadow: 0 0 40px rgba(0, 255, 221, 0.581);
+      }
+      50% {
+        box-shadow: 0 0 60px rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
 </head>
 <body>
-
-<div class="schedule">
-  <div class="block history" id="history-1"><div class="time">6:30 - 10:30</div><div>History</div><div class="countdown" id="cd-history"></div></div>
-  <div class="block nap" id="nap-1"><div class="time">10:30 - 11:00</div><div>Nap/Break</div><div class="countdown" id="cd-nap1"></div></div>
-  <div class="block coding" id="coding-1"><div class="time">11:00 - 14:00</div><div>Coding</div><div class="countdown" id="cd-coding"></div></div>
-  <div class="block nap" id="nap-2"><div class="time">14:00 - 14:30</div><div>Nap/Optional Coding</div><div class="countdown" id="cd-nap2"></div></div>
-  <div class="block vedic" id="vedic-1"><div class="time">14:30 - 15:30</div><div>Vedic Maths</div><div class="countdown" id="cd-vedic"></div></div>
-  <div class="block nap" id="nap-3"><div class="time">15:30 - 16:00</div><div>Nap/Break</div><div class="countdown" id="cd-nap3"></div></div>
-  <div class="block polity" id="polity-1"><div class="time">16:00 - 19:30</div><div>Polity</div><div class="countdown" id="cd-polity"></div></div>
-
-  <!-- Sunday Special -->
-  <div class="block sunday" id="sunday-1"><div class="time">7:00 - 18:00</div><div>Sunday: Test / Game / Free</div><div class="countdown" id="cd-sunday1"></div></div>
-</div>
-
-<div class="note-box">
-  No need to do all at the same time.
-</div>
-
-<script>
-const sessions = [
-  {id:'history-1', start:'06:30', end:'10:30', cd:'cd-history'},
-  {id:'nap-1', start:'10:30', end:'11:00', cd:'cd-nap1'},
-  {id:'coding-1', start:'11:00', end:'14:00', cd:'cd-coding'},
-  {id:'nap-2', start:'14:00', end:'14:30', cd:'cd-nap2'},
-  {id:'vedic-1', start:'14:30', end:'15:30', cd:'cd-vedic'},
-  {id:'nap-3', start:'15:30', end:'16:00', cd:'cd-nap3'},
-  {id:'polity-1', start:'16:00', end:'19:30', cd:'cd-polity'},
- ];
-
-function parseTime(t) {
-  const [h,m] = t.split(':').map(Number);
-  const now = new Date();
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0);
-}
-
-function getSessionDuration(start, end) {
-  const diff = (parseTime(end) - parseTime(start)) / 1000;
-  const h = String(Math.floor(diff/3600)).padStart(2,'0');
-  const m = String(Math.floor((diff%3600)/60)).padStart(2,'0');
-  return `${h}:${m}`;
-}
-
-let sessionTimers = {};
-
-function updateSessions() {
-  const now = new Date();
-  const today = now.getDay(); // Sunday = 0
-  let currentSession = null;
-
-  // Find current session
-  sessions.forEach(s => {
-    if(s.onlySunday && today !== 0) return; // skip Sunday countdown
-    const start = parseTime(s.start);
-    const end = parseTime(s.end);
-    if(now >= start && now <= end) currentSession = s;
-  });
-
-  // Update all sessions
-  sessions.forEach(s => {
-    const block = document.getElementById(s.id);
-    const cdEl = document.getElementById(s.cd);
-    const totalTime = getSessionDuration(s.start, s.end);
-
-    block.classList.remove('current');
-
-    // Sunday countdown only if Sunday
-    if(s.onlySunday && today === 0) {
-      if(currentSession && currentSession.id === s.id) {
-        block.classList.add('current');
-        let diff = Math.floor((parseTime(s.end)-now)/1000);
-        const h = String(Math.floor(diff/3600)).padStart(2,'0');
-        const m = String(Math.floor((diff%3600)/60)).padStart(2,'0');
-        const sec = String(diff%60).padStart(2,'0');
-        cdEl.textContent = `${h}:${m}:${sec} / ${totalTime}`;
-      } else {
-        cdEl.textContent = totalTime;
-      }
-      return;
-    }
-
-    // Weekday sessions
-    if(currentSession && currentSession.id === s.id) {
-      block.classList.add('current');
-      let diff = Math.floor((parseTime(s.end)-now)/1000);
-      const h = String(Math.floor(diff/3600)).padStart(2,'0');
-      const m = String(Math.floor((diff%3600)/60)).padStart(2,'0');
-      const sec = String(diff%60).padStart(2,'0');
-      cdEl.textContent = `${h}:${m}:${sec} / ${totalTime}`;
-    } else {
-      cdEl.textContent = totalTime;
-    }
-  });
-}
-
-setInterval(updateSessions,1000);
-</script>
+  <audio autoplay loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/31/audio_3f6b35294c.mp3?filename=space-ambient-112925.mp3" type="audio/mp3">
+    Your browser does not support the audio element.
+  </audio>
+  <div class="welcome-box">
+    <div class="text-box english" onclick="window.location.href='https://youtubein.github.io/11/'">
+      <div class="animated-text">
+        <span>L</span><span>I</span><span>B</span><span>R</span><span>A</span><span>R</span><span>Y</span>
+      </div>
+    </div>
+    <div class="text-box hinglish" onclick="window.location.href='https://youtubein.github.io/12/'">
+      <div class="animated-text">
+        <span>H</span><span>O</span><span>M</span><span>E</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Optional: If you want to add any additional JavaScript logic, it can go here
+  </script>
 </body>
 </html>
